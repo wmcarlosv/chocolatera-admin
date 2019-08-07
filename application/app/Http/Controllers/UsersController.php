@@ -53,6 +53,7 @@ class UsersController extends Controller
         $object->name = $request->input('name');
         $object->email = $request->input('email');
         $object->phone = $request->input('phone');
+        $object->role = $request->input('coordinator');
         $object->password = bcrypt('123456');
 
         if($object->save()){
