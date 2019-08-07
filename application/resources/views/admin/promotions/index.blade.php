@@ -18,6 +18,7 @@
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Price</th>
+                    <th>Imagen</th>
                     <th>/</th>
                 </thead>
                 <tbody>
