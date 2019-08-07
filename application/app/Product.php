@@ -13,4 +13,8 @@ class Product extends Model
     public function product_type(){
     	return $this->belongsTo('App\ProductType');
     }
+
+    public function promotions(){
+    	return $this->belongsToMany('App\Promotion');
+    }
 }

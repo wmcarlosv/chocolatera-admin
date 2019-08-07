@@ -55,6 +55,7 @@ class PromotionsController extends Controller
         $object->price = $request->input('price');
 
         if($object->save()){
+            $object->products()->attach($request->input('products'));
             flash()->overlay('Registro insertado con Exito!!','Exito');
         }else{
             flash()->overlay('Error al tratar de insertar el Registro!!','Error');
@@ -110,6 +111,8 @@ class PromotionsController extends Controller
         $object->price = $request->input('price');
 
         if($object->save()){
+            $object->products()->detach();
+            $object->products()->attach($request->input('products'));
             flash()->overlay('Registro Actualizado con Exito!!','Exito');
         }else{
             flash()->overlay('Error al tratar de Actualizar el Registro!!','Error');
@@ -128,6 +131,8 @@ class PromotionsController extends Controller
     {
         $object = Promotion::findorfail($id);
         
+        $object->products()->detach();
+
         if($object->delete()){
             flash()->overlay('Registro Eliminado con Exito!!','Exito');
         }else{

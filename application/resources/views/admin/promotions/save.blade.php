@@ -58,7 +58,7 @@
                         <tbody>
                             @foreach($products as $p)
                                 <tr>
-                                    <td><input type="checkbox" style="width:20px; height:20px;" name="products[]" value="{{ $p->id }}"></td>
+                                    <td><input type="checkbox" style="width:20px; height:20px;" name="products[]" id="check_box_{{ $p->id }}" value="{{ $p->id }}"></td>
                                     <td>{{ $p->name }}</td>
                                     <td>{{ $p->product_type->name }}</td>
                                     <td>{{ $p->price }}</td>
@@ -80,4 +80,16 @@
             {!! Form::close() !!}
         </div>
     </div>
+@stop
+
+@section('js')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            @if($action == 'edit')
+                @foreach(@$data->products as $ps)
+                    $("#check_box_{{ $ps->id }}").prop('checked',true);
+                @endforeach
+            @endif
+        });
+    </script>
 @stop
