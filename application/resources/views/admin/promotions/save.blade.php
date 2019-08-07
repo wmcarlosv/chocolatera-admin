@@ -19,23 +19,61 @@
             <h2>{{ $title }}</h2>
         </div>
         <div class="panel-body">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#promotion">Promocion</a></li>
+              <li><a data-toggle="tab" href="#products">Productos</a></li>
+            </ul>
             @if($action == 'create')
                 {!! Form::open(['route' => 'promotions.store', 'method' => 'POST', 'autocomplete' => 'off']) !!}
             @else
                 {!! Form::open(['route' => ['promotions.update',@$data->id], 'method' => 'PUT', 'autocomplete' => 'off']) !!}
             @endif
-                <div class="form-group">
-                    <label for="name">Nombre: </label>
-                    <input type="text" class="form-control" name="name" id="name" value="{{ @$data->name }}" />
-                </div>
-                <div class="form-group">
-                    <label for="description">Descripci&oacute;n: </label>
-                    <textarea class="form-control" name="description" id="description"> {{ @$data->description }}</textarea>
-                </div>
+                <div class="tab-content">
+                  <div id="promotion" class="tab-pane fade in active">
+                    <br />
+                    <div class="form-group">
+                        <label for="name">Nombre: </label>
+                        <input type="text" class="form-control" name="name" id="name" value="{{ @$data->name }}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Descripci&oacute;n: </label>
+                        <textarea class="form-control" name="description" id="description"> {{ @$data->description }}</textarea>
+                    </div>
 
-                <div class="form-group">
-                    <label for="price">Precio: </label>
-                    <input type="text" class="form-control" name="price" id="price" value="{{ @$data->price }}" />
+                    <div class="form-group">
+                        <label for="price">Precio: </label>
+                        <input type="text" class="form-control" name="price" id="price" value="{{ @$data->price }}" />
+                    </div>
+                  </div>
+                  <div id="products" class="tab-pane fade">
+                    <br />
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <th>-</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Preco</th>
+                            <th>Foto</th>
+                        </thead>
+                        <tbody>
+                            @foreach($products as $p)
+                                <tr>
+                                    <td><input type="checkbox" style="width:20px; height:20px;" name="products[]" value="{{ $p->id }}"></td>
+                                    <td>{{ $p->name }}</td>
+                                    <td>{{ $p->product_type->name }}</td>
+                                    <td>{{ $p->price }}</td>
+                                    <td>
+                                        @if(!empty($p->image))
+                                            <img src="{{ asset('application/storage/app/'.$p->image) }}" width="50" height="50" class="img-thumbnail" />
+                                        @else
+                                            <label class="label label-danger">Sin Imagen</label>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                  </div>
                 </div>
                 <button class="btn btn-success"><i class="fa fa-floppy-o"></i> Guardar</button>
                 <a class="btn btn-danger" href="{{ route('promotions.index') }}"><i class="fa fa-times"></i> Cancelar</a>

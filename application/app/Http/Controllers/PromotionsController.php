@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Promotion;
+use App\Product;
 
 class PromotionsController extends Controller
 {
@@ -30,7 +31,8 @@ class PromotionsController extends Controller
     {
         $title = "Nueva Promocion";
         $action = "create";
-        return view($this->view.'save',['title' => $title, 'action' => $action]);
+        $products = Product::all();
+        return view($this->view.'save',['title' => $title, 'action' => $action, 'products' => $products]);
     }
 
     /**
@@ -83,7 +85,8 @@ class PromotionsController extends Controller
         $title = "Editar Promocion";
         $action = "edit";
         $data = Promotion::findorfail($id);
-        return view($this->view.'save',['title' => $title, 'action' => $action, 'data' => $data]);
+        $products = Product::all();
+        return view($this->view.'save',['title' => $title, 'action' => $action, 'data' => $data, 'products' => $products]);
     }
 
     /**
