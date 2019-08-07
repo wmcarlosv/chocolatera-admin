@@ -95,6 +95,7 @@
     						<th>ID</th>
     						<th>Nombre</th>
     						<th>Precio</th>
+                            <th>Foto</th>
     					</thead>
     					<tbody>
                             @foreach($data['promotions'] as $p)
@@ -102,6 +103,13 @@
                                     <td>{{ $p->id }}</td>
                                     <td>{{ $p->name }}</td>
                                     <td>{{ $p->price }}</td>
+                                    <td>
+                                        @if(!empty($p->image))
+                                            <img src="{{ asset('application/storage/app/'.$p->image) }}" class="img-thumbnail" width="100" height="100" />
+                                        @else
+                                            <label class="label label-danger">Sin Imagen</label>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

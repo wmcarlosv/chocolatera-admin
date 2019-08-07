@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Promotion;
 use App\Product;
 
@@ -53,6 +54,12 @@ class PromotionsController extends Controller
         $object->name = $request->input('name');
         $object->description = $request->input('description');
         $object->price = $request->input('price');
+
+        if($request->hasFile('image')){
+            $object->image = $request->image->store('promotions/images/');
+        }else{
+            $object->image = NULL;
+        }
 
         if($object->save()){
             $object->products()->attach($request->input('products'));
@@ -110,6 +117,11 @@ class PromotionsController extends Controller
         $object->description = $request->input('description');
         $object->price = $request->input('price');
 
+        if($request->hasFile('image')){
+            Storage::delete($object->image);
+            $object->image = $request->image->store('promotions/images/');
+        }
+
         if($object->save()){
             $object->products()->detach();
             $object->products()->attach($request->input('products'));
@@ -130,7 +142,7 @@ class PromotionsController extends Controller
     public function destroy($id)
     {
         $object = Promotion::findorfail($id);
-        
+
         $object->products()->detach();
 
         if($object->delete()){

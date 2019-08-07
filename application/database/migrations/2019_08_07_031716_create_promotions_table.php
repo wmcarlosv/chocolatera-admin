@@ -18,6 +18,7 @@ class CreatePromotionsTable extends Migration
             $table->string('name',120)->nullable(false);
             $table->text('description')->nullale();
             $table->float('price')->nullable(false)->default(0.0);
+            $table->string('image',100)->nullable();
             $table->timestamps();
         });
     }

@@ -24,9 +24,9 @@
               <li><a data-toggle="tab" href="#products">Productos</a></li>
             </ul>
             @if($action == 'create')
-                {!! Form::open(['route' => 'promotions.store', 'method' => 'POST', 'autocomplete' => 'off']) !!}
+                {!! Form::open(['route' => 'promotions.store', 'method' => 'POST', 'autocomplete' => 'off', 'files' => true]) !!}
             @else
-                {!! Form::open(['route' => ['promotions.update',@$data->id], 'method' => 'PUT', 'autocomplete' => 'off']) !!}
+                {!! Form::open(['route' => ['promotions.update',@$data->id], 'method' => 'PUT', 'autocomplete' => 'off', 'files' => true]) !!}
             @endif
                 <div class="tab-content">
                   <div id="promotion" class="tab-pane fade in active">
@@ -38,6 +38,18 @@
                     <div class="form-group">
                         <label for="description">Descripci&oacute;n: </label>
                         <textarea class="form-control" name="description" id="description"> {{ @$data->description }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image">Imagen: </label>
+                        @if(!empty(@$data->image))
+                            <br />
+                            <br />
+                            <img src="{{ asset('application/storage/app/'.@$data->image) }}" class="img-thumbnail" width="150" height="150">
+                            <br />
+                            <br />
+                        @endif
+                        <input type="file" class="form-control" name="image" id="image"/>
                     </div>
 
                     <div class="form-group">

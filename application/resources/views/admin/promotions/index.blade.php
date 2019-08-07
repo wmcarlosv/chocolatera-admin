@@ -27,6 +27,13 @@
                             <td>{{ $d->name }}</td>
                             <td>{{ $d->price }}</td>
                             <td>
+                                @if(!empty($d->image))
+                                    <img src="{{ asset('application/storage/app/'.$d->image) }}" width="100" height="100" class="img-thumbnail">
+                                @else
+                                    <label class="label label-danger">Sin Imagen</label>
+                                @endif
+                            </td>
+                            <td>
                                 <a class="btn btn-info" href="{{ route('promotions.edit',$d->id) }}"><i class="fa fa-pencil"></i></a>
                                 {!! Form::open(['route' => ['promotions.destroy',$d->id], 'method' => 'DELETE', 'autocomplete' => 'off', 'style' => 'display:inline']) !!}
                                     <button class="btn btn-danger"><i class="fa fa-times"></i></button>
