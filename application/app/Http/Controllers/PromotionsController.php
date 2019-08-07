@@ -56,7 +56,7 @@ class PromotionsController extends Controller
         $object->price = $request->input('price');
 
         if($request->hasFile('image')){
-            $object->image = $request->image->store('promotions/images/');
+            $object->image = $request->image->store('promotions/images');
         }else{
             $object->image = NULL;
         }
@@ -119,7 +119,7 @@ class PromotionsController extends Controller
 
         if($request->hasFile('image')){
             Storage::delete($object->image);
-            $object->image = $request->image->store('promotions/images/');
+            $object->image = $request->image->store('promotions/images');
         }
 
         if($object->save()){
